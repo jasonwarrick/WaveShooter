@@ -3,8 +3,6 @@ using UnityEngine;
 
 public class FirstPersonMovement : MonoBehaviour
 {
-    [SerializeField] Transform playerCamera;
-
     public float speed = 5;
 
     [Header("Running")]
@@ -12,8 +10,6 @@ public class FirstPersonMovement : MonoBehaviour
     public bool IsRunning { get; private set; }
     public float runSpeed = 9;
     public KeyCode runningKey = KeyCode.LeftShift;
-
-    [SerializeField] float knockbackForce;
 
     Rigidbody rb;
     /// <summary> Functions to override movement speed. Will use the last added override. </summary>
@@ -45,11 +41,5 @@ public class FirstPersonMovement : MonoBehaviour
     }
 
     void ShootKnockback() {
-        // Debug.Log("Knockback");
-        // Vector3 forRay = -playerCamera.forward * 10;
-        // Debug.DrawRay(transform.position, forRay, Color.green, 10f);
-        // rb.AddForce(-playerCamera.forward * 100 * knockbackForce, ForceMode.VelocityChange);
-        Debug.Log(-playerCamera.forward);
-        rb.velocity += -playerCamera.forward * knockbackForce;
     }
 }

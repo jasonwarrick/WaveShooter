@@ -407,12 +407,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 97fca36bd81de7c4cafce7bbf02ca611, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  camera: {fileID: 4490257326247362}
   speed: 5
   canRun: 1
   runSpeed: 9
   runningKey: 304
-  knockbackForce: 0
 --- !u!114 &114497868231759342
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -616,10 +614,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 81f47083f5173a64aa5455b5b5e20445, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  range: 0
+  range: 30
   damage: 0
   cooldown: 0
   maxAmmo: 0
+  maxSpread: 0.05
+  rayCount: 10
 --- !u!1 &4964284723692651118
 GameObject:
   m_ObjectHideFlags: 0
