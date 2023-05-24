@@ -31,11 +31,19 @@ public class Shoot : MonoBehaviour
     }
 
     void FireGun() {
-        Vector3 forRay;
+        Vector3 shootRay;
 
         for (int i = 0; i < rayCount; i++) { // Loop through all of the projectiles
-            forRay = (playerCamera.forward + new Vector3(Random.Range(-maxSpread,maxSpread), Random.Range(-maxSpread,maxSpread), Random.Range(-maxSpread,maxSpread))) * range; // Modify each pellet by a slightly different amount each time
-            Debug.DrawRay(transform.position, forRay, Color.green, 10f);
+            shootRay = (playerCamera.forward + new Vector3(Random.Range(-maxSpread,maxSpread), Random.Range(-maxSpread,maxSpread), Random.Range(-maxSpread,maxSpread))) * range; // Modify each pellet by a slightly different amount each time
+
+            RaycastHit hit;
+            Physics.Raycast(transform.position, shootRay, out hit);
+            Debug.DrawRay(transform.position, shootRay, Color.green, 10f);
+            if(hit.transform == null) {
+                Debug.Log("Nada");
+            } else {
+                Debug.Log("Hit " + hit.transform.name);
+            }
         }
     }
 }
