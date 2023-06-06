@@ -13,6 +13,8 @@ public class Shoot : MonoBehaviour
     [SerializeField] float maxSpread;
     [SerializeField] float rayCount;
 
+    [SerializeField] LayerMask playerLayer;
+
     public delegate void PlayerShoot();
     public static PlayerShoot playerShoot;
     
@@ -37,7 +39,7 @@ public class Shoot : MonoBehaviour
             shootRay = (playerCamera.forward + new Vector3(Random.Range(-maxSpread,maxSpread), Random.Range(-maxSpread,maxSpread), Random.Range(-maxSpread,maxSpread))) * range; // Modify each pellet by a slightly different amount each time
 
             RaycastHit hit;
-            Physics.Raycast(transform.position, shootRay, out hit);
+            Physics.Raycast(transform.position, shootRay, out hit, playerLayer);
             Debug.DrawRay(transform.position, shootRay, Color.green, 10f);
             if(hit.transform == null) {
                 Debug.Log("Nada");
