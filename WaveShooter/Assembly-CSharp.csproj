@@ -44,10 +44,11 @@
      <Compile Include="Assets\Player\PlayerCamera.cs" />
      <Compile Include="Assets\Shotgun\Shoot.cs" />
      <Compile Include="Assets\Mini First Person Controller\Scripts\Components\Jump.cs" />
+     <Compile Include="Assets\Enemies\EnemyAI.cs" />
      <Compile Include="Assets\Mini First Person Controller\Scripts\Components\Crouch.cs" />
      <Compile Include="Assets\Player\CameraHolder.cs" />
      <Compile Include="Assets\Mini First Person Controller\Scripts\Components\GroundCheck.cs" />
-     <Compile Include="Assets\Enemies\EnemyAI.cs" />
+     <Compile Include="Assets\Enemies\EnemyHealth.cs" />
     <Reference Include="UnityEngine">
         <HintPath>C:\Program Files\Unity\Hub\Editor\2020.3.26f1\Editor\Data\Managed\UnityEngine\UnityEngine.dll</HintPath>
     </Reference>
