@@ -40,8 +40,8 @@ public class Shoot : MonoBehaviour
             shootRay = (playerCamera.forward + new Vector3(Random.Range(-maxSpread,maxSpread), Random.Range(-maxSpread,maxSpread), Random.Range(-maxSpread,maxSpread))) * range; // Modify each pellet by a slightly different amount each time
 
             RaycastHit hit;
-            Physics.Raycast(transform.position, shootRay, out hit, range, ~playerLayer); // Fire a raycast from the center of the camera to the calculated destination, assign it to the premade hit variable, at max range, and ignore the player layer
-            Debug.DrawRay(transform.position, shootRay, Color.green, 10f); // Draw the raycast in debug for my sake :)
+            Physics.Raycast(playerCamera.position, shootRay, out hit, range, ~playerLayer); // Fire a raycast from the center of the camera to the calculated destination, assign it to the premade hit variable, at max range, and ignore the player layer
+            Debug.DrawRay(playerCamera.position, shootRay, Color.green, 10f); // Draw the raycast in debug for my sake :)
 
             if(hit.transform == null) { // Ignore any misses (for the time being)
                 continue;

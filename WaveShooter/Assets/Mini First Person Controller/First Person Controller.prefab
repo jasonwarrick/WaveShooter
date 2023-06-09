@@ -649,7 +649,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   range: 30
-  damage: 5
+  damage: 10
   cooldown: 1
   maxAmmo: 0
   maxSpread: 0.05
@@ -657,9 +657,6 @@ MonoBehaviour:
   playerLayer:
     serializedVersion: 2
     m_Bits: 128
-  enemyLayer:
-    serializedVersion: 2
-    m_Bits: 256
 --- !u!1 &4964284723692651118
 GameObject:
   m_ObjectHideFlags: 0
