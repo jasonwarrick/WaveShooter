@@ -8,13 +8,20 @@ public class Shoot : MonoBehaviour
     
     [SerializeField] float range;
     [SerializeField] float damage;
-    [SerializeField] float cooldown;
+    [SerializeField] float cooldownTime;
+    [SerializeField] float reloadTime;
     [SerializeField] float maxAmmo;
     [SerializeField] float maxSpread;
     [SerializeField] float pelletCount;
 
+    bool coolingDown = false;
+    bool reloading = false;
+
+    float timer = 0;
+
     [SerializeField] LayerMask playerLayer;
     int enemyLayer; // Layer var needs to be int to be read by raycast
+    [SerializeField] AudioSource shootSound;
 
     public delegate void PlayerShoot();
     public static PlayerShoot playerShoot;
@@ -28,13 +35,24 @@ public class Shoot : MonoBehaviour
 
     // Update is called once per frame
     void Update() {
-        if(Input.GetMouseButtonDown(0)) {
+        if(Input.GetMouseButtonDown(0) && !coolingDown && !reloading) {
             playerShoot?.Invoke(); // Fire the playerShoot event to all delegates
+        }
+
+        if (coolingDown) {
+            if(timer < cooldownTime) {
+                timer += Time.deltaTime;
+            } else {
+                coolingDown = false;
+                timer = 0;
+            }
         }
     }
 
     void FireGun() {
         Vector3 shootRay;
+        shootSound.Play();
+        coolingDown = true;
 
         for (int i = 0; i < pelletCount; i++) { // Loop through all of the projectiles
             shootRay = (playerCamera.forward + new Vector3(Random.Range(-maxSpread,maxSpread), Random.Range(-maxSpread,maxSpread), Random.Range(-maxSpread,maxSpread))) * range; // Modify each pellet by a slightly different amount each time
