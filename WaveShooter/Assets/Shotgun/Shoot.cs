@@ -10,18 +10,23 @@ public class Shoot : MonoBehaviour
     [SerializeField] float damage;
     [SerializeField] float cooldownTime;
     [SerializeField] float reloadTime;
-    [SerializeField] float maxAmmo;
+    [SerializeField] int maxAmmo;
     [SerializeField] float maxSpread;
-    [SerializeField] float pelletCount;
+    [SerializeField] int pelletCount;
 
     bool coolingDown = false;
     bool reloading = false;
+    int currentShots;
 
     float timer = 0;
 
     [SerializeField] LayerMask playerLayer;
     int enemyLayer; // Layer var needs to be int to be read by raycast
+    
     [SerializeField] AudioSource shootSound;
+    [SerializeField] AudioSource reloadSound;
+    
+    [SerializeField] KeyCode reloadButton;
 
     public delegate void PlayerShoot();
     public static PlayerShoot playerShoot;
@@ -31,28 +36,56 @@ public class Shoot : MonoBehaviour
         enemyLayer = LayerMask.NameToLayer("Enemy");
         playerShoot += FireGun; // Add the FireGun method to the playerShoot event
         playerCamera = transform.parent.transform;
+        currentShots = maxAmmo;
     }
 
     // Update is called once per frame
     void Update() {
-        if(Input.GetMouseButtonDown(0) && !coolingDown && !reloading) {
+        Debug.Log(timer);
+
+        if (Input.GetMouseButtonDown(0) && !coolingDown && !reloading && currentShots > 0) {
             playerShoot?.Invoke(); // Fire the playerShoot event to all delegates
         }
 
-        if (coolingDown) {
+        if (Input.GetKeyDown(reloadButton)) {
+            Cooldown();
+            reloading = true;
+        }
+
+        if (reloading) { // Reloading takes priority
+            if(timer < reloadTime) {
+                timer += Time.deltaTime;
+            } else {
+                Reload();
+            }
+        } else if (coolingDown) {
             if(timer < cooldownTime) {
                 timer += Time.deltaTime;
             } else {
-                coolingDown = false;
-                timer = 0;
+                Cooldown();
             }
         }
     }
+
+    void Cooldown() {
+        coolingDown = false;
+        timer = 0;
+    }
+
+    void Reload() {
+        currentShots = maxAmmo;
+        reloading = false;
+        timer = 0;
+        reloadSound.Play();
+    }
+
 
     void FireGun() {
         Vector3 shootRay;
         shootSound.Play();
         coolingDown = true;
+        currentShots -= 1;
+        Debug.Log(currentShots);
 
         for (int i = 0; i < pelletCount; i++) { // Loop through all of the projectiles
             shootRay = (playerCamera.forward + new Vector3(Random.Range(-maxSpread,maxSpread), Random.Range(-maxSpread,maxSpread), Random.Range(-maxSpread,maxSpread))) * range; // Modify each pellet by a slightly different amount each time

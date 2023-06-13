@@ -1282,14 +1282,6 @@ PrefabInstance:
       propertyPath: m_PlayOnAwake
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 7708591242474024806, guid: 11aaea5348574644a9eb4f4504fcce3f, type: 3}
-      propertyPath: maxSpread
-      value: 0.1
-      objectReference: {fileID: 0}
-    - target: {fileID: 7708591242474024806, guid: 11aaea5348574644a9eb4f4504fcce3f, type: 3}
-      propertyPath: cooldownTime
-      value: 3
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 11aaea5348574644a9eb4f4504fcce3f, type: 3}
 --- !u!1 &1039568967
