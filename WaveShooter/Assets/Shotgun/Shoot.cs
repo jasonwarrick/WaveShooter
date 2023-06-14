@@ -1,11 +1,13 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using TMPro;
 
 public class Shoot : MonoBehaviour
 {
     Transform playerCamera;
     
+    [Header("Shotgun Attributes")]
     [SerializeField] float range;
     [SerializeField] float damage;
     [SerializeField] float cooldownTime;
@@ -14,6 +16,7 @@ public class Shoot : MonoBehaviour
     [SerializeField] float maxSpread;
     [SerializeField] int pelletCount;
 
+    [Header("States")]
     bool coolingDown = false;
     bool reloading = false;
     int currentShots;
@@ -22,10 +25,15 @@ public class Shoot : MonoBehaviour
 
     [SerializeField] LayerMask playerLayer;
     int enemyLayer; // Layer var needs to be int to be read by raycast
+
+    [Header("UI")]
+    [SerializeField] TextMeshProUGUI ammoCountText;
     
+    [Header("Audio")]
     [SerializeField] AudioSource shootSound;
     [SerializeField] AudioSource reloadSound;
     
+    [Header("Keycodes")]
     [SerializeField] KeyCode reloadButton;
 
     public delegate void PlayerShoot();
@@ -33,15 +41,17 @@ public class Shoot : MonoBehaviour
     
     // Start is called before the first frame update
     void Start() {
-        enemyLayer = LayerMask.NameToLayer("Enemy");
+        enemyLayer = LayerMask.NameToLayer("Enemy"); // Establish the enemy layer
         playerShoot += FireGun; // Add the FireGun method to the playerShoot event
         playerCamera = transform.parent.transform;
         currentShots = maxAmmo;
+        UpdateUI();
+        Debug.Log(currentShots);
     }
 
     // Update is called once per frame
     void Update() {
-        Debug.Log(timer);
+        // Debug.Log(timer);
 
         if (Input.GetMouseButtonDown(0) && !coolingDown && !reloading && currentShots > 0) {
             playerShoot?.Invoke(); // Fire the playerShoot event to all delegates
@@ -50,6 +60,7 @@ public class Shoot : MonoBehaviour
         if (Input.GetKeyDown(reloadButton)) {
             Cooldown();
             reloading = true;
+            UpdateUI();
         }
 
         if (reloading) { // Reloading takes priority
@@ -67,6 +78,14 @@ public class Shoot : MonoBehaviour
         }
     }
 
+    void UpdateUI() {
+        if (reloading) {
+            ammoCountText.text = "...";
+        } else {
+            ammoCountText.text = currentShots.ToString();
+        }
+    }
+
     void Cooldown() {
         coolingDown = false;
         timer = 0;
@@ -75,6 +94,7 @@ public class Shoot : MonoBehaviour
     void Reload() {
         currentShots = maxAmmo;
         reloading = false;
+        UpdateUI();
         timer = 0;
         reloadSound.Play();
     }
@@ -85,6 +105,7 @@ public class Shoot : MonoBehaviour
         shootSound.Play();
         coolingDown = true;
         currentShots -= 1;
+        UpdateUI();
         Debug.Log(currentShots);
 
         for (int i = 0; i < pelletCount; i++) { // Loop through all of the projectiles
