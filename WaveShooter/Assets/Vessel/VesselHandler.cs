@@ -7,12 +7,15 @@ public class VesselHandler : MonoBehaviour
     [SerializeField] float throwingForce;
 
     [SerializeField] List<GameObject> vessels;
+    [SerializeField] Transform playerCamera;
 
-    bool thrown = false;
+    bool empty = false;
 
     // Start is called before the first frame update
     void Start() {
-        vessels[0].SetActive(false);
+        foreach (GameObject vessel in vessels) {
+            vessel.SetActive(false);
+        }
     }
 
     // Update is called once per frame
@@ -23,9 +26,17 @@ public class VesselHandler : MonoBehaviour
     }
 
     void ThrowVessel() {
-        vessels[0].SetActive(true);
-        vessels[0].transform.parent = null;
-        thrown = true;
-        vessels[0].GetComponentInChildren<Rigidbody>().AddForce(transform.forward * throwingForce, ForceMode.Impulse);
+        foreach (GameObject vessel in vessels) {
+            if (vessel.activeInHierarchy) { // Vessels are only active when thrown, so if they're active, move onto the next one
+                continue;
+            } else {
+                vessel.SetActive(true);
+                vessel.transform.parent = null;
+                vessel.GetComponentInChildren<Rigidbody>().AddForce(playerCamera.transform.forward * throwingForce, ForceMode.Impulse);
+                return;
+            }
+        }
+
+        empty = true;
     }
 }
