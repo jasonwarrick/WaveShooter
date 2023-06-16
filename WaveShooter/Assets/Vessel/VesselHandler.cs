@@ -30,6 +30,7 @@ public class VesselHandler : MonoBehaviour
             if (vessel.activeInHierarchy) { // Vessels are only active when thrown, so if they're active, move onto the next one
                 continue;
             } else {
+                vessel.transform.position = gameObject.transform.position;
                 vessel.SetActive(true);
                 vessel.transform.parent = null;
                 vessel.GetComponentInChildren<Rigidbody>().AddForce(playerCamera.transform.forward * throwingForce, ForceMode.Impulse);
