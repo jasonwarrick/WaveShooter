@@ -44,13 +44,13 @@
      <Compile Include="Assets\Player\PlayerCamera.cs" />
      <Compile Include="Assets\Enemies\EnemyHealth.cs" />
      <Compile Include="Assets\Shotgun\Shoot.cs" />
+     <Compile Include="Assets\Vessel\VesselHandler.cs" />
+     <Compile Include="Assets\Vessel\Vessel.cs" />
      <Compile Include="Assets\Mini First Person Controller\Scripts\Components\Jump.cs" />
      <Compile Include="Assets\Enemies\EnemyAI.cs" />
      <Compile Include="Assets\Mini First Person Controller\Scripts\Components\Crouch.cs" />
      <Compile Include="Assets\Player\CameraHolder.cs" />
      <Compile Include="Assets\Mini First Person Controller\Scripts\Components\GroundCheck.cs" />
-     <Compile Include="Assets\Vessel\Vessel.cs" />
-     <Compile Include="Assets\Vessel\VesselHandler.cs" />
      <None Include="Assets\TextMesh Pro\Shaders\TMPro.cginc" />
      <None Include="Assets\TextMesh Pro\Shaders\TMP_SDF-Mobile Overlay.shader" />
      <None Include="Assets\TextMesh Pro\Shaders\TMP_Bitmap.shader" />

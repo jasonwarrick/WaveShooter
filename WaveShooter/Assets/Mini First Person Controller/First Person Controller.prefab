@@ -933,14 +933,16 @@ MonoBehaviour:
   cooldownTime: 1.5
   reloadTime: 2.5
   maxAmmo: 3
-  maxSpread: 0.05
+  maxSpread: 0.1
   pelletCount: 10
   playerLayer:
     serializedVersion: 2
     m_Bits: 128
+  bulletSpawnPoint: {fileID: 299694215670833077}
   ammoCountText: {fileID: 1741281054335953971}
   shootSound: {fileID: 540161589541312472}
   reloadSound: {fileID: 3335912939187085600}
+  bulletTrail: {fileID: 7532287176508897661, guid: f983b9e6774c9d74185f9456c247e07d, type: 3}
   reloadButton: 114
 --- !u!82 &540161589541312472
 AudioSource:
@@ -1849,6 +1851,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 029c041c331bb0c4cb4b48887b6508da, type: 3}
+--- !u!4 &299694215670833077 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 5678068117515085749, guid: 029c041c331bb0c4cb4b48887b6508da, type: 3}
+  m_PrefabInstance: {fileID: 5396498261181315072}
+  m_PrefabAsset: {fileID: 0}
 --- !u!4 &5396498261181696058 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 405562, guid: 029c041c331bb0c4cb4b48887b6508da, type: 3}
