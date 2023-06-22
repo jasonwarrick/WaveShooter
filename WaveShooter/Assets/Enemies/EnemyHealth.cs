@@ -12,10 +12,12 @@ public class EnemyHealth : MonoBehaviour
 
     EnemyAI enemyAI;
     NavMeshAgent navmeshAgent;
+    ParticleHandler particleHandler;
 
     void Start() {
         enemyAI = transform.parent.GetComponent<EnemyAI>();
         navmeshAgent = transform.parent.GetComponent<NavMeshAgent>();
+        particleHandler = transform.parent.GetComponentInChildren<ParticleHandler>();
     }
 
     public void TakeDamage(float damage) {
@@ -39,6 +41,7 @@ public class EnemyHealth : MonoBehaviour
         killed = true;
         enemyAI.enabled = false;
         navmeshAgent.enabled = false;
+        particleHandler.HeadshotParticles();
         gameObject.SetActive(false);
     }
 

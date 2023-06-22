@@ -35,8 +35,7 @@ public class Shoot : MonoBehaviour
     [SerializeField] AudioSource reloadSound;
     
     [Header("VFX")]
-    [SerializeField] TrailRenderer bulletTrail; // Bullet trail code adapted from: Hitscan Guns with Bullet Tracers | Raycast Shooting Unity Tutorial by LlamAcademy - https://www.youtube.com/watch?v=cI3E7_f74MA
-
+    
     [Header("Keycodes")]
     [SerializeField] KeyCode reloadButton;
 
@@ -105,6 +104,7 @@ public class Shoot : MonoBehaviour
 
 
     void FireGun() {
+        List<RaycastHit> hits = new List<RaycastHit>();
         Vector3 shootRay;
         shootSound.Play();
         coolingDown = true;
@@ -120,38 +120,20 @@ public class Shoot : MonoBehaviour
             Debug.DrawRay(bulletSpawnPoint.position, shootRay, Color.green, 10f); // Draw the raycast in debug for my sake :)
 
             if(hit.transform == null) { // Ignore any misses (for the time being)
-                TrailRenderer trail = Instantiate(bulletTrail, bulletSpawnPoint.position, Quaternion.identity);
-
-                StartCoroutine(SpawnTrail(trail, hit.point));
-
                 continue;
             } else { // Print out the name of the object hit
-                if (hit.transform.gameObject.layer == enemyLayer) {
-                    hit.transform.GetComponent<EnemyHealth>().TakeDamage(damage);
+                if (hit.transform.gameObject.layer == enemyLayer) { // Organize the hits to prioritize headshots first
+                    if(hit.transform.gameObject.tag == "Head") {
+                        hits.Insert(0, hit);
+                    } else {
+                        hits.Add(hit);
+                    }
                 }
-
-                TrailRenderer trail = Instantiate(bulletTrail, bulletSpawnPoint.position, Quaternion.identity);
-
-                StartCoroutine(SpawnTrail(trail, hit.point));
             }
         }
-    }
 
-    IEnumerator SpawnTrail(TrailRenderer trail, Vector3 hit) {
-        float time = 0;
-
-        Vector3 startPosition = trail.transform.position;
-
-        while (time < 1) {
-            trail.transform.position = Vector3.Lerp(startPosition, hit, time);
-            time += Time.deltaTime / trail.time;
-
-            yield return null;
+        foreach (RaycastHit hit in hits) {
+            hit.transform.gameObject.GetComponent<EnemyHealth>().TakeDamage(damage);
         }
-
-        trail.transform.position = hit;
-        // Instantiate hit particles here
-
-        Destroy(trail.gameObject, trail.time);
     }
 }
