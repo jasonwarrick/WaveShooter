@@ -942,7 +942,6 @@ MonoBehaviour:
   ammoCountText: {fileID: 1741281054335953971}
   shootSound: {fileID: 540161589541312472}
   reloadSound: {fileID: 3335912939187085600}
-  bulletTrail: {fileID: 7532287176508897661, guid: f983b9e6774c9d74185f9456c247e07d, type: 3}
   reloadButton: 114
 --- !u!82 &540161589541312472
 AudioSource:
@@ -1309,7 +1308,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 571a8433772624341aced4ea507778f6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  throwingForce: 50
+  throwingForce: 30
   vessels:
   - {fileID: 2698006437306010308}
   - {fileID: 807088592932705079}

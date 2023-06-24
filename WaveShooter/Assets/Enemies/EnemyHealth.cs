@@ -46,6 +46,7 @@ public class EnemyHealth : MonoBehaviour
     }
 
     void BodyShot() {
+        particleHandler.BodyshotParticles();
         transform.parent.gameObject.SetActive(false);
     }
 }
